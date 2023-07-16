@@ -39,6 +39,6 @@ let rec read_packet t =
   match !(t.packets) with
   | hd :: tl -> t.packets := tl; hd
   | [] ->
-    let n = Eio.Flow.read t.flow t.buffer in
+    let n = Eio.Flow.single_read t.flow t.buffer in
     t.packets := Lowlevel.process_input t.buffer n;
     read_packet t
